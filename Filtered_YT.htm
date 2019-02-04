@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <div id="searchBar">
+      <input id="query" type="text"> 
+      <button id="searchBtn" class="Btn" type="button">Search</button>
+      <button id="loadBtn" class="Btn" type="button">Load</button>
+      <hr>
+
+    </div>
+
+    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+    
+    
+    <script src="jquery.js"></script>
+    <script>
+        var vidId = 'M7lc1UVf-VE';
+
+        // 2. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+  
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        var player;
+        function onYouTubeIframeAPIReady() {
+          player = new YT.Player('player', {
+            height: '390',
+            width: '640',
+            videoId: vidId,
+            events: {
+              'onReady': onPlayerReady,
+              'onStateChange': onPlayerStateChange
+            }
+          });
+          
+        }
+      
+  
+        // 4. The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+          //event.target.playVideo();
+        }
+  
+        // 5. The API calls this function when the player's state changes.
+        //    The function indicates that when playing a video (state=1),
+        //    the player should play for six seconds and then stop.
+        var done = false;
+        function onPlayerStateChange(event) {
+          if (event.data == YT.PlayerState.PLAYING && !done) {
+            setTimeout(stopVideo, 6000);
+            done = true;
+          }
+  
+          if (event.data == YT.PlayerState.ENDED) {
+            stopVideo();
+          }
+        }
+        function stopVideo() {
+          player.stopVideo();
+        }
+    </script>
+    
+    <script>
+      
+      $(document).ready(function(){
+
+        var searchBox = $("#query");
+      
+        function onSearch(){
+          // Get the search query  
+          var searchQuery = searchBox.val();
+        
+
+          // Apply filter for prohibited searches
+          switch(searchQuery){
+            case 'd': return;
+          }
+
+          // Open YT search results in new window or tab
+          window.open('https://www.youtube.com/results?search_query='+searchQuery);
+        }
+
+        function loadVid(){
+          console.log('a')
+
+          // Replace old video with an empty div
+          // where new video should be placed
+          $("#player").replaceWith('<div id="player"></div>');
+          
+          // Get the video id from search box
+          vidId = searchBox.val();
+          
+          console.log("loading video with video Id: "+vidId);
+
+          // Reload YT embedded video for new video
+          onYouTubeIframeAPIReady();
+        }
+
+        // Add event Listeners to Buttons
+        
+        // Get the Search Button element
+        var searchBtn = $("#searchBtn")
+
+        // Add event listener to Search Button for
+        // opening YT search results
+        // in new tab/window on click
+        searchBtn.on('click',onSearch);
+
+        // Get the Load Button element
+        var loadBtn = $("#loadBtn")
+
+        // Add event listener to Load Button
+        // to load new YT video
+        loadBtn.on('click',loadVid);
+      });
+      
+    </script>
+  </body>
+</html>
+
