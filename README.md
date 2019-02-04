@@ -1,13 +1,13 @@
 # Filtered_YT
 Something I made to help prevent distractions while watchin a Youtube video
 
-##How to use:
+## How to use:
 
-###Search:
+### Search:
 
 Search on youtube by typing in a query in the textbox and press Search
 
-###Load:
+### Load:
 
 Load a YT video by entering the video ID in the text box and click Load
 
