@@ -11,5 +11,5 @@ Search on youtube by typing in a query in the textbox and press Search
 
 Load a YT video by entering the video ID in the text box and click Load
 
-I kept it ugly to help focus.
+**Note:** I kept it ugly to help focus.
 Any suggestions and improvements are welcome.
